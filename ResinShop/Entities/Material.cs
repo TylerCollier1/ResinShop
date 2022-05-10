@@ -8,5 +8,8 @@ namespace ResinShop.Core.Entities
 {
     public class Material
     {
+        public int MaterialId { get; set; }
+        public string MaterialName { get; set; }
+        public List<ArtMaterial> ArtMaterial { get; set; }
     }
 }

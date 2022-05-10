@@ -8,5 +8,6 @@ namespace ResinShop.Core.Interfaces.DAL
 {
     public interface IArtColorRepository
     {
+
     }
 }
