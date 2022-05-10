@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "08EH6M7Kk1HFlplbGKkG8yi8foTnfQ9zFdhbLyDPv5R3OyutU2suMAAjLUr+NL7kmyROpjfFh+V+5Odny5mb2A==",
+  "dgSpecHash": "NtK0LyA6K7W9TdfrRUn5Q6tUOxvsUE/qJZbYB0Iyhoh1rTJUcHQZ61ecZ8z87H9zJXkIs6Dnu/YVurQZl1MtfA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL.Tests\\ResinShop.DAL.Tests.csproj",
+  "projectFilePath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL.Tests\\ResinShop.DAL.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\risse\\.nuget\\packages\\coverlet.collector\\3.1.0\\coverlet.collector.3.1.0.nupkg.sha512",
     "C:\\Users\\risse\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",

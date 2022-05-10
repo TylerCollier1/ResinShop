@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
+      "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
       "projectName": "ResinShop.Core",
-      "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
+      "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
       "packagesPath": "C:\\Users\\risse\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\obj\\",
+      "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

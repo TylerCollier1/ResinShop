@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.API\\ResinShop.API.csproj": {}
+    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.API\\ResinShop.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.API\\ResinShop.API.csproj": {
+    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.API\\ResinShop.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.API\\ResinShop.API.csproj",
+        "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.API\\ResinShop.API.csproj",
         "projectName": "ResinShop.API",
-        "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.API\\ResinShop.API.csproj",
+        "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.API\\ResinShop.API.csproj",
         "packagesPath": "C:\\Users\\risse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.API\\obj\\",
+        "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -34,11 +34,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj": {
-                "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj"
+              "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj": {
+                "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj"
               },
-              "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj": {
-                "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj"
+              "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj": {
+                "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj"
               }
             }
           }
@@ -53,6 +53,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
@@ -80,14 +84,14 @@
         }
       }
     },
-    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj": {
+    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj",
         "projectName": "ResinShop.DAL",
-        "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj",
+        "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj",
         "packagesPath": "C:\\Users\\risse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL\\obj\\",
+        "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -110,8 +114,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj": {
-                "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj"
+              "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj": {
+                "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj"
               }
             }
           }
@@ -164,14 +168,14 @@
         }
       }
     },
-    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj": {
+    "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
+        "projectUniqueName": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
         "projectName": "ResinShop.Core",
-        "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
+        "projectPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.Core.csproj",
         "packagesPath": "C:\\Users\\risse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop\\obj\\",
+        "outputPath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "o0MIlut++QQabsYgDneYaGITPDQuoXmwuBM/hqMFdPFx8Yb4jNbZXoQafXTi5hrmwM5kf6S/UlrdXNv9WP6Vlg==",
+  "dgSpecHash": "M4uPuhrqgO/SUEqeGiVN8ZkxQ3tDveTbyhmSqPRtAyOEqTXAKnBUSjm0kjgJt2CY9jR4jD8GmzwAPTRl4Iy79g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj",
+  "projectFilePath": "C:\\Users\\risse\\Documents\\Git Repositories\\ResinShop\\ResinShop.DAL\\ResinShop.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\risse\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\risse\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
