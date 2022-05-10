@@ -8,5 +8,8 @@ namespace ResinShop.Core.Entities
 {
     public class AdvancedFeature
     {
+        public int AdvancedFeatureId { get; set; }
+        public string AdvancedFeatureName { get; set; }
+        public List<Art> Art { get; set; }
     }
 }
