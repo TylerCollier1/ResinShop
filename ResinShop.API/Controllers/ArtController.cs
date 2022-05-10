@@ -17,7 +17,6 @@ namespace ResinShop.API.Controllers
             _artRepository = artRepository;
         }
 
-        /*
         [HttpGet]
         public IActionResult GetAllArt()
         {
@@ -32,7 +31,6 @@ namespace ResinShop.API.Controllers
                 throw new Exception(result.Message);
             }
         }
-        */
 
         [HttpGet("{id}", Name = "GetArt")]
         public IActionResult GetArt(int id)
@@ -46,21 +44,6 @@ namespace ResinShop.API.Controllers
             else
             {
                 return BadRequest(result.Message);
-            }
-        }
-
-        [HttpGet("{id}/missions", Name = "AgentMissions")]
-        public IActionResult GetMissions(int id)
-        {
-            var result = _agentRepository.GetMissions(id); //ISSUE BECAUSE CORE ERROR
-
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            else
-            {
-                throw new Exception(result.Message);
             }
         }
 
