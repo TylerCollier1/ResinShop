@@ -51,7 +51,7 @@ namespace ResinShop.DAL.Tests
         }
 
         [Test]
-        public void TestUpdateCustomer()
+        public void TestUpdateArt()
         {
             Art art = db.Get(1).Data;
             art.Height = 15;
@@ -66,7 +66,7 @@ namespace ResinShop.DAL.Tests
         }
 
         [Test]
-        public void TestDeleteCustomer()
+        public void TestDeleteArt()
         {
             db.Delete(1);
             Assert.AreEqual(null, db.Get(1).Data);
