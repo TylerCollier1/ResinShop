@@ -17,7 +17,7 @@ namespace ResinShop.DAL.Repositories
 
         public ArtRepository(FactoryMode mode = FactoryMode.TEST)
         {
-            dbContextOptions = DBFactory.GetDbContext(mode);
+            dbContextOptions = DbFactory.GetDbContext(mode);
         }
 
         public Response Delete(int artId)
@@ -59,6 +59,28 @@ namespace ResinShop.DAL.Repositories
                 }
             }
             return response;
+        }
+
+        public Response<List<Art>> GetAll()
+        {
+            Response<List<Art>> response = new Response<List<Art>>();
+
+            try
+            {
+                using (var db = new AppDbContext(dbContextOptions))
+                {
+                    var art = db.Arts.ToList();
+                    response.Data = art;
+                    response.Success = true;
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+                return response;
+            }
         }
 
         public Response<Art> Insert(Art art)
