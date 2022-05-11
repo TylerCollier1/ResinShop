@@ -25,12 +25,12 @@ namespace ResinShop.DAL
         {
             optionsBuilder.LogTo(message => Debug.WriteLine(message), LogLevel.Information);
         }
-        public ApplicationDbContext() : base()
+        public AppDbContext() : base()
         {
 
         }
 
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
 
         }
