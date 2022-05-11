@@ -13,11 +13,11 @@ namespace ResinShop.DAL.Repositories
 {
     public class ArtRepository : IArtRepository
     {
-        private DbContextOptions dbContextOptions;
+        public DBFactory DbFac { get; set; }
 
-        public ArtRepository(FactoryMode mode = FactoryMode.TEST)
+        public ArtRepository(DBFactory dBFactory)
         {
-            dbContextOptions = DbFactory.GetDbContext(mode);
+            DbFac = dBFactory;
         }
 
         public Response Delete(int artId)
@@ -25,7 +25,7 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = new AppDbContext(dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
                     db.Arts.Remove(db.Arts.Find(artId));
                     db.SaveChanges();
@@ -44,7 +44,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Art> Get(int artId)
         {
             Response<Art> response = new Response<Art>();
-            using (var db = new AppDbContext(dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 var art = db.Arts.Find(artId);
                 if (art != null)
@@ -67,7 +67,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = new AppDbContext(dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
                     var art = db.Arts.ToList();
                     response.Data = art;
@@ -86,7 +86,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Art> Insert(Art art)
         {
             Response<Art> response = new Response<Art>();
-            using (var db = new AppDbContext(dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 db.Arts.Add(art);
                 db.SaveChanges();
@@ -101,7 +101,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(Art art)
         {
             Response response = new Response();
-            using (var db = new AppDbContext(dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 db.Arts.Update(art);
                 db.SaveChanges();
