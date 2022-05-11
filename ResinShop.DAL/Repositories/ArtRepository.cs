@@ -13,21 +13,21 @@ namespace ResinShop.DAL.Repositories
 {
     public class ArtRepository : IArtRepository
     {
-        private DbContextOptions dbContextOptions;
+        public DBFactory DbFac { get; set; }
 
-        public ArtRepository(FactoryMode mode = FactoryMode.TEST)
+        public ArtRepository(DBFactory dBFactory)
         {
-            dbContextOptions = DbFactory.GetDbContext(mode);
+            DbFac = dBFactory;
         }
 
-        public Response Delete(int artId)
+        public Response Delete(int artId) //TODO: Fix this one after ORDER Repo is complete
         {
             Response response = new Response();
             try
             {
-                using (var db = new AppDbContext(dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
-                    db.Arts.Remove(db.Arts.Find(artId));
+                    db.Art.Remove(db.Art.Find(artId));
                     db.SaveChanges();
                     response.Success = true;
                     response.Message = "Art deleted successfully.";
@@ -44,9 +44,9 @@ namespace ResinShop.DAL.Repositories
         public Response<Art> Get(int artId)
         {
             Response<Art> response = new Response<Art>();
-            using (var db = new AppDbContext(dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
-                var art = db.Arts.Find(artId);
+                var art = db.Art.Find(artId);
                 if (art != null)
                 {
                     response.Data = art;
@@ -67,9 +67,9 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = new AppDbContext(dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
-                    var art = db.Arts.ToList();
+                    var art = db.Art.ToList();
                     response.Data = art;
                     response.Success = true;
                     return response;
@@ -86,9 +86,9 @@ namespace ResinShop.DAL.Repositories
         public Response<Art> Insert(Art art)
         {
             Response<Art> response = new Response<Art>();
-            using (var db = new AppDbContext(dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
-                db.Arts.Add(art);
+                db.Art.Add(art);
                 db.SaveChanges();
 
                 response.Data = art;
@@ -101,9 +101,9 @@ namespace ResinShop.DAL.Repositories
         public Response Update(Art art)
         {
             Response response = new Response();
-            using (var db = new AppDbContext(dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
-                db.Arts.Update(art);
+                db.Art.Update(art);
                 db.SaveChanges();
                 response.Success = true;
                 response.Message = "Updated art";

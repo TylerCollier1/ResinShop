@@ -13,7 +13,7 @@ namespace ResinShop.DAL
     public class AppDbContext : DbContext
     {
         public DbSet<AdvancedFeature> AdvancedFeatures { get; set; }
-        public DbSet<Art> Arts { get; set; }
+        public DbSet<Art> Art { get; set; }
         public DbSet<ArtColor> ArtColors { get; set; }
         public DbSet<ArtMaterial> ArtMaterials { get; set; }
         public DbSet<Color> Colors { get; set; }
@@ -37,7 +37,10 @@ namespace ResinShop.DAL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+            builder.Entity<ArtColor>()
+                .HasKey(ac => new { ac.ArtId, ac.ColorId });
+            builder.Entity<ArtMaterial>()
+                .HasKey(am => new { am.ArtId, am.MaterialId });
         }
     }
 }
