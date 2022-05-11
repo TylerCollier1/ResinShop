@@ -8,7 +8,7 @@ namespace ResinShop.API.Models
         [Required(ErrorMessage = "First name is required.")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Last name is required.")]
-        public string LongName { get; set; }
+        public string LastName { get; set; }
         [Required(ErrorMessage = "Email address is required.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Street address is required.")]

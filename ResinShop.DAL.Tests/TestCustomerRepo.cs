@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using ResinShop.Core.Entities;
+using ResinShop.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ResinShop.DAL.Tests
 {
     public class TestCustomerRepo
     {
-        CustomerRepo db;
+        CustomerRepository db;
         DBFactory dbf;
 
         [SetUp]
@@ -19,7 +20,7 @@ namespace ResinShop.DAL.Tests
         {
             ConfigProvider cp = new ConfigProvider();
             dbf = new DBFactory(cp.Config, FactoryMode.TEST);
-            db = new CustomerRepo(dbf);
+            db = new CustomerRepository(dbf);
             dbf.GetDbContext().Database.ExecuteSqlRaw("SetKnownGoodState");
         }
 
