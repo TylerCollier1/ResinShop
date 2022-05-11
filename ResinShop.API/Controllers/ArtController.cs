@@ -114,7 +114,9 @@ namespace ResinShop.API.Controllers
             else
             {
                 if (artModel.ArtId < 1)
+                {
                     ModelState.AddModelError("artId", "Invalid Art ID");
+                }
                 return BadRequest(ModelState);
             }
         }
