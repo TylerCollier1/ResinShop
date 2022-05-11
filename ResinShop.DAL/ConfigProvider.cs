@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,12 @@ namespace ResinShop.DAL
 {
     public class ConfigProvider
     {
+        public IConfigurationRoot Config { get; private set; }
+        public ConfigProvider()
+        {
+            var builder = new ConfigurationBuilder();
+            builder.AddUserSecrets<ConfigProvider>();
+            Config = builder.Build();
+        }
     }
 }
