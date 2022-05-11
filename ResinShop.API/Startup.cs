@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using ResinShop.Core.Interfaces.DAL;
+using ResinShop.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
