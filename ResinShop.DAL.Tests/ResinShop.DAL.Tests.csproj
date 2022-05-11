@@ -19,4 +19,8 @@
     <ProjectReference Include="..\ResinShop.DAL\ResinShop.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="sql\" />
+  </ItemGroup>
+
 </Project>
