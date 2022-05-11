@@ -1,9 +1,9 @@
-CREATE PROCEDURE [SetKnownGoodState]
+ALTER PROCEDURE [SetKnownGoodState]
 AS
 BEGIN
-    ALTER TABLE Art DROP CONSTRAINT fk_Art_AdvancedFeatureId
     ALTER TABLE [Order] DROP CONSTRAINT fk_Order_ArtId
-    ALTER TABLE [Order] DROP CONSTRAINT fk_Order_CustomerId    
+    ALTER TABLE [Order] DROP CONSTRAINT fk_Order_CustomerId   
+    --ALTER TABLE Art DROP CONSTRAINT fk_Art_AdvancedFeatureId 
     ALTER TABLE ArtColor DROP CONSTRAINT fk_ArtColor_ArtId
     ALTER TABLE ArtColor DROP CONSTRAINT fk_ArtColor_ColorId
     ALTER TABLE ArtMaterial DROP CONSTRAINT fk_ArtMaterial_MateralId

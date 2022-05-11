@@ -21,7 +21,7 @@ namespace ResinShop.DAL.Tests
             ConfigProvider cp = new ConfigProvider();
             dbf = new DBFactory(cp.Config, FactoryMode.TEST);
             db = new ArtRepository(dbf);
-            dbf.GetDbContext().Database.ExecuteSqlRaw("SetKnownGoodState");
+            dbf.GetDbContext().Database.ExecuteSqlRaw("setknowngoodstate");
         }
 
 
