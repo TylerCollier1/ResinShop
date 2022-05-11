@@ -37,10 +37,7 @@ namespace ResinShop.DAL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<AgencyAgent>()
-                .HasKey(aa => new { aa.AgencyId, aa.AgentId });
-            builder.Entity<MissionAgent>()
-                .HasKey(ma => new { ma.MissionId, ma.AgentId });
+            
         }
     }
 }
