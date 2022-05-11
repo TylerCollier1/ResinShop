@@ -13,74 +13,63 @@ namespace ResinShop.DAL.Tests
     public class TestArtRepo
     {
         ArtRepository db;
-        Art art = new Art
-        {
-            ArtId = 1,
-            AdvancedFeatureId = 3, // need to consider string vs int
-            Height = 32,
-            Width = 12,
-            MaterialQuantity = 1,
-            ColorQuantity = 1,
-            Cost = 1056
-        };
-        Art updateArt = new Art
-        {
-            ArtId = 1,
-            AdvancedFeatureId = 3, // need to consider string vs int
-            Height = 40,
-            Width = 15,
-            MaterialQuantity = 1,
-            ColorQuantity = 1,
-            Cost = 2012
-        };
-        Art addArt = new Art
-        {
-            AdvancedFeatureId = 3, // need to consider string vs int
-            Height = 27,
-            Width = 27,
-            MaterialQuantity = 1,
-            ColorQuantity = 1,
-            Cost = 3001
-        };
+        DBFactory dbf;
+
         [SetUp]
         public void Setup()
         {
-            ArtRepository setup = new ArtRepository(FactoryMode.TEST);
-            setup.SetKnownGoodState(); // change to our data name
-            db = setup;
+            ConfigProvider cp = new ConfigProvider();
+            dbf = new DBFactory(cp.Config, FactoryMode.TEST);
+            db = new ArtRepository(dbf);
+            dbf.GetDbContext().Database.ExecuteSqlRaw("SetKnownGoodState");
         }
+
 
         [Test]
         public void TestGet()
         {
+            Assert.AreEqual(1, db.Get(1).Data.ArtId);
+        }
+
+        [Test]
+        public void TestAddNewArt()
+        {
+            Art expected = new Art
+            {
+                Height = 12,
+                Width = 12,
+                MaterialQuantity = 1,
+                ColorQuantity = 1, 
+                AdvancedFeatureId = 1,
+                Cost = 396
+            };
+
+            db.Insert(expected);
+            expected.ArtId = 4;
+
+            Assert.AreEqual(expected.ArtId, db.Get(4).Data.ArtId);
+        }
+
+        [Test]
+        public void TestUpdateCustomer()
+        {
+            Art art = db.Get(1).Data;
+            art.Height = 15;
+            art.Width = 23;
+            art.MaterialQuantity = 1;
+            art.ColorQuantity = 1;
+            art.Cost = 948.75M;
+            db.Update(art);
+
+            Assert.AreEqual(art.ArtId, db.Get(1).Data.ArtId);
             Assert.AreEqual(art.Height, db.Get(1).Data.Height);
         }
 
         [Test]
-        public void TestAdd()
+        public void TestDeleteCustomer()
         {
-            var add = db.Insert(addArt);
-            Assert.IsTrue(add.Success);
-            Assert.AreEqual(addArt.Width, db.Get(11).Data.Width);
-        }
-        [Test]
-        public void TestUpdate()
-        {
-            var update = db.Update(addArt);
-            Assert.IsTrue(update.Success);
-            Assert.AreEqual(addArt.Height, db.Get(1).Data.Height);
-        }
-        [Test]
-        public void TestDelete()
-        {
-            var delete = db.Delete(11);
-            Assert.IsFalse(delete.Success);
-        }
-        [Test]
-        public void ShouldNotDelete()
-        {
-            var delete = db.Delete(11);
-            Assert.IsFalse(delete.Success);
+            db.Delete(1);
+            Assert.AreEqual(null, db.Get(1).Data);
         }
     }
 }
