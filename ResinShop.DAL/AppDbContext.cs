@@ -37,7 +37,10 @@ namespace ResinShop.DAL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+            builder.Entity<ArtColor>()
+                .HasKey(ac => new { ac.ArtId, ac.ColorId });
+            builder.Entity<ArtMaterial>()
+                .HasKey(am => new { am.ArtId, am.MaterialId });
         }
     }
 }
