@@ -56,7 +56,7 @@ namespace ResinShop.API.Controllers
                 Customer c = new Customer
                 {
                     FirstName = customer.FirstName,
-                    LongName = customer.LongName,
+                    LastName = customer.LastName,
                     Email = customer.Email,
                     StreetAddress = customer.StreetAddress,
                     City = customer.City,
@@ -91,7 +91,7 @@ namespace ResinShop.API.Controllers
                 {
                     CustomerId = customerModel.CustomerId,
                     FirstName = customerModel.FirstName,
-                    LongName = customerModel.LongName,
+                    LastName = customerModel.LastName,
                     Email = customerModel.Email,
                     StreetAddress = customerModel.StreetAddress,
                     City = customerModel.City,
