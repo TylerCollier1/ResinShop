@@ -8,5 +8,8 @@ namespace ResinShop.Core.Entities
 {
     public class Color
     {
+        public int ColorId { get; set; }
+        public string ColorName { get; set; }
+        public List<ArtColor> ArtColor { get; set; }
     }
 }
