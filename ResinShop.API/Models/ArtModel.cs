@@ -13,6 +13,6 @@ namespace ResinShop.API.Models
         public decimal Width { get; set; }
         public int MaterialQuantity { get; set; }
         public int ColorQuantity { get; set; }
-        public int Cost { get; set; } //need to change in core to decimal (and maybe database)
+        public decimal Cost { get; set; } //need to change in core to decimal (and maybe database)
     }
 }

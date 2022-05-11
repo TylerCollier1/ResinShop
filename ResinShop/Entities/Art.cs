@@ -14,7 +14,7 @@ namespace ResinShop.Core.Entities
         public decimal Width { get; set; }
         public int MaterialQuantity { get; set; }
         public int ColorQuantity { get; set; }
-        public int Cost { get; set; }
+        public decimal Cost { get; set; }
         public AdvancedFeature? AdvancedFeature { get; set; }
         public List<ArtMaterial>? ArtMaterial { get; set; }
         public List<ArtColor>? ArtColor { get; set; }

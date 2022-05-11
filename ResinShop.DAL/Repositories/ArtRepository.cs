@@ -20,14 +20,14 @@ namespace ResinShop.DAL.Repositories
             DbFac = dBFactory;
         }
 
-        public Response Delete(int artId)
+        public Response Delete(int artId) //TODO: Fix this one after ORDER Repo is complete
         {
             Response response = new Response();
             try
             {
                 using (var db = DbFac.GetDbContext())
                 {
-                    db.Arts.Remove(db.Arts.Find(artId));
+                    db.Art.Remove(db.Art.Find(artId));
                     db.SaveChanges();
                     response.Success = true;
                     response.Message = "Art deleted successfully.";
@@ -46,7 +46,7 @@ namespace ResinShop.DAL.Repositories
             Response<Art> response = new Response<Art>();
             using (var db = DbFac.GetDbContext())
             {
-                var art = db.Arts.Find(artId);
+                var art = db.Art.Find(artId);
                 if (art != null)
                 {
                     response.Data = art;
@@ -69,7 +69,7 @@ namespace ResinShop.DAL.Repositories
             {
                 using (var db = DbFac.GetDbContext())
                 {
-                    var art = db.Arts.ToList();
+                    var art = db.Art.ToList();
                     response.Data = art;
                     response.Success = true;
                     return response;
@@ -88,7 +88,7 @@ namespace ResinShop.DAL.Repositories
             Response<Art> response = new Response<Art>();
             using (var db = DbFac.GetDbContext())
             {
-                db.Arts.Add(art);
+                db.Art.Add(art);
                 db.SaveChanges();
 
                 response.Data = art;
@@ -103,7 +103,7 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             using (var db = DbFac.GetDbContext())
             {
-                db.Arts.Update(art);
+                db.Art.Update(art);
                 db.SaveChanges();
                 response.Success = true;
                 response.Message = "Updated art";

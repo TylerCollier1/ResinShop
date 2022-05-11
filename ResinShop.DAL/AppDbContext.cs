@@ -13,7 +13,7 @@ namespace ResinShop.DAL
     public class AppDbContext : DbContext
     {
         public DbSet<AdvancedFeature> AdvancedFeatures { get; set; }
-        public DbSet<Art> Arts { get; set; }
+        public DbSet<Art> Art { get; set; }
         public DbSet<ArtColor> ArtColors { get; set; }
         public DbSet<ArtMaterial> ArtMaterials { get; set; }
         public DbSet<Color> Colors { get; set; }
