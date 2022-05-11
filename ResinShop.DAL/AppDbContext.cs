@@ -12,14 +12,14 @@ namespace ResinShop.DAL
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<AdvancedFeature> AdvancedFeatures { get; set; }
+        public DbSet<AdvancedFeature> AdvancedFeature { get; set; }
         public DbSet<Art> Art { get; set; }
-        public DbSet<ArtColor> ArtColors { get; set; }
-        public DbSet<ArtMaterial> ArtMaterials { get; set; }
+        public DbSet<ArtColor> ArtColor { get; set; }
+        public DbSet<ArtMaterial> ArtMaterial { get; set; }
         public DbSet<Color> Colors { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Material> Materials { get; set; }
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Material> Material { get; set; }
+        public DbSet<Order> Order { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

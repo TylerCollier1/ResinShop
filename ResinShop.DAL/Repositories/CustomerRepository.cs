@@ -25,7 +25,7 @@ namespace ResinShop.DAL.Repositories
             {
                 using (var db = DbFac.GetDbContext())
                 {
-                    db.Customers.Remove(db.Customers.Find(customerId));
+                    db.Customer.Remove(db.Customer.Find(customerId));
                     db.SaveChanges();
                     response.Success = true;
                     response.Message = "Customer deleted successfully.";
@@ -46,7 +46,7 @@ namespace ResinShop.DAL.Repositories
             {
                 try
                 {
-                    var customer = db.Customers.Find(customerId);
+                    var customer = db.Customer.Find(customerId);
                     if (customer != null)
                     {
                         response.Data = customer;
@@ -75,7 +75,7 @@ namespace ResinShop.DAL.Repositories
             {
                 using (var db = DbFac.GetDbContext())
                 {
-                    var customer = db.Customers.ToList();
+                    var customer = db.Customer.ToList();
                     response.Data = customer;
                     response.Success = true;
                     return response;
@@ -97,7 +97,7 @@ namespace ResinShop.DAL.Repositories
             {
                 try
                 {
-                    db.Customers.Add(customer);
+                    db.Customer.Add(customer);
                     db.SaveChanges();
 
                     response.Data = customer;
@@ -121,7 +121,7 @@ namespace ResinShop.DAL.Repositories
             using (var db = DbFac.GetDbContext())
                 try
                 {
-                    db.Customers.Update(customer);
+                    db.Customer.Update(customer);
                     db.SaveChanges();
                     response.Success = true;
                     response.Message = "Customer updated";
