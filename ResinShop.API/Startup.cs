@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using ResinShop.Core.Interfaces.DAL;
+using ResinShop.DAL;
+using ResinShop.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +52,11 @@ namespace ResinShop.API
 
 
             services.AddControllers();
-            services.AddTransient<IArtRepository, ArtRepository>(); //TODO: Waiting for DAL
+
+            ConfigProvider cp = new ConfigProvider();
+            DBFactory dbFactory = new DBFactory(cp.Config);
+
+            services.AddTransient<IArtRepository, ArtRepository>(s => new ArtRepository(dbFactory));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

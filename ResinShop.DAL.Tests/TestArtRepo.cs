@@ -46,7 +46,7 @@ namespace ResinShop.DAL.Tests
         public void Setup()
         {
             ArtRepository setup = new ArtRepository(FactoryMode.TEST);
-            setup.Temp(); // change to our data name
+            setup.SetKnownGoodState(); // change to our data name
             db = setup;
         }
 
