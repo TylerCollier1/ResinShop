@@ -16,7 +16,7 @@ namespace ResinShop.DAL
         public DbSet<Art> Art { get; set; }
         public DbSet<ArtColor> ArtColor { get; set; }
         public DbSet<ArtMaterial> ArtMaterial { get; set; }
-        public DbSet<Color> Colors { get; set; }
+        public DbSet<Color> Color { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Material> Material { get; set; }
         public DbSet<Order> Order { get; set; }
