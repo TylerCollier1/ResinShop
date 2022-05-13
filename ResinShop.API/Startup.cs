@@ -57,6 +57,7 @@ namespace ResinShop.API
             DBFactory dbFactory = new DBFactory(cp.Config);
 
             services.AddTransient<IArtRepository, ArtRepository>(s => new ArtRepository(dbFactory));
+            services.AddTransient<IColorRepository, ColorRepository>(s => new ColorRepository(dbFactory));
             services.AddTransient<ICustomerRepository, CustomerRepository>(s => new CustomerRepository(dbFactory));
             services.AddTransient<IOrderRepository, OrderRepository>(s => new OrderRepository(dbFactory));
         }
