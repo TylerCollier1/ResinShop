@@ -13,5 +13,6 @@ namespace ResinShop.Core.Interfaces.DAL
         Response Update(Material material);
         Response Delete(int materialId);
         Response<Material> Get(int materialId);
+        Response<List<Material>> GetAll();
     }
 }

@@ -13,5 +13,7 @@ namespace ResinShop.Core.Interfaces.DAL
         Response Update(Color color);
         Response Delete(int colorId);
         Response<Color> Get(int colorId);
+        Response<List<Color>> GetAll();
+
     }
 }
