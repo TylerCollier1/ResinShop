@@ -57,6 +57,8 @@ namespace ResinShop.API
             DBFactory dbFactory = new DBFactory(cp.Config);
 
             services.AddTransient<IArtRepository, ArtRepository>(s => new ArtRepository(dbFactory));
+            services.AddTransient<ICustomerRepository, CustomerRepository>(s => new CustomerRepository(dbFactory));
+            services.AddTransient<IOrderRepository, OrderRepository>(s => new OrderRepository(dbFactory));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
