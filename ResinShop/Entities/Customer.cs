@@ -17,6 +17,6 @@ namespace ResinShop.Core.Entities
         public string StateName { get; set; }
         public string ZipCode { get; set; }
         public string PhoneNumber { get; set; }
-        public List<Order> Order { get; set; }
+        public List<Order>? Order { get; set; }
     }
 }

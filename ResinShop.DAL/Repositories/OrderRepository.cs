@@ -1,5 +1,6 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
+using ResinShop.Core.Interfaces.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ResinShop.DAL.Repositories
 {
-    public class OrderRepository
+    public class OrderRepository : IOrderRepository
     {
         public DBFactory DbFac { get; set; }
 

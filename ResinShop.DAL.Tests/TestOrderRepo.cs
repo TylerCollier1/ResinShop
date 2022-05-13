@@ -40,8 +40,8 @@ namespace ResinShop.DAL.Tests
             Order expected = new Order
             {
                 OrderId = 4,
-                Customer = cr.Get(2).Data,
-                Art = ar.Get(3).Data,
+                CustomerId = 4, // need to double check
+                ArtId = 4,  // need to double check
                 OrderDate = new DateTime(2022, 10, 3)
             };
 
@@ -54,14 +54,14 @@ namespace ResinShop.DAL.Tests
         [Test]
         public void TestUpdateOrder()
         {
-            Order order = db.Get(4).Data;
-            order.Art = ar.Get(2).Data;
-            order.Customer = cr.Get(1).Data;
+            Order order = db.Get(3).Data;
+            order.ArtId = 5;        // need to double check
+            order.CustomerId = 5;   // need to double check
             order.OrderDate = new DateTime(2022, 06, 20);
             db.Update(order);
 
-            Assert.AreEqual(order.Art, ar.Get(2).Data);
-            Assert.AreEqual(order.Customer, cr.Get(1).Data);
+            Assert.AreEqual(order.ArtId, ar.Get(2).Data);
+            Assert.AreEqual(order.CustomerId, cr.Get(1).Data);
         }
 
         [Test]

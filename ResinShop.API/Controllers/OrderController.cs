@@ -32,7 +32,7 @@ namespace ResinShop.API.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetOrders")]
+        [HttpGet("{id}", Name = "GetOrder")]
         public IActionResult GetOrder(int id)
         {
             var result = _orderRepository.Get(id);
@@ -54,8 +54,8 @@ namespace ResinShop.API.Controllers
             {
                 Order o = new Order
                 {
-                    Customer = order.Customer,
-                    Art = order.Art,
+                    CustomerId = order.CustomerId,
+                    ArtId = order.ArtId,
                     OrderDate = order.OrderDate
                 };
 
@@ -84,8 +84,8 @@ namespace ResinShop.API.Controllers
                 Order order = new Order
                 {
                     OrderId = orderModel.OrderId,
-                    Customer = orderModel.Customer,
-                    Art = orderModel.Art,
+                    CustomerId = orderModel.CustomerId,
+                    ArtId = orderModel.ArtId,
                     OrderDate = orderModel.OrderDate
                 };
 
