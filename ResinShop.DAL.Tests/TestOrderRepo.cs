@@ -15,17 +15,13 @@ namespace ResinShop.DAL.Tests
         OrderRepository db;
         CustomerRepository cr;
         ArtRepository ar;
-        DBFactory dbf;
 
         [SetUp]
         public void Setup()
         {
-            ConfigProvider cp = new ConfigProvider();
-            dbf = new DBFactory(cp.Config, FactoryMode.TEST);
-            db = new OrderRepository(dbf);
-            cr = new CustomerRepository(dbf);
-            ar = new ArtRepository(dbf);
-            dbf.GetDbContext().Database.ExecuteSqlRaw("SetKnownGoodState");
+            OrderRepository setup = new OrderRepository(FactoryMode.TEST);
+            setup.SetKnownGoodState();
+            db = setup;
         }
 
         [Test]
@@ -39,16 +35,13 @@ namespace ResinShop.DAL.Tests
         {
             Order expected = new Order
             {
-                OrderId = 4,
                 CustomerId = 4, // need to double check
                 ArtId = 4,  // need to double check
                 OrderDate = new DateTime(2022, 10, 3)
             };
 
-            db.Insert(expected);
-            expected.OrderId = 4;
-
-            Assert.AreEqual(expected.OrderId, db.Get(4).Data.OrderId);
+            Assert.AreEqual(expected, db.Get(4).Data);
+            Assert.AreEqual(expected, db.Get(4).Data);
         }
 
         [Test]
@@ -60,8 +53,8 @@ namespace ResinShop.DAL.Tests
             order.OrderDate = new DateTime(2022, 06, 20);
             db.Update(order);
 
-            Assert.AreEqual(order.ArtId, ar.Get(2).Data);
-            Assert.AreEqual(order.CustomerId, cr.Get(1).Data);
+            Assert.AreEqual(order.ArtId, ar.Get(5).Data);
+            Assert.AreEqual(order.CustomerId, cr.Get(5).Data);
         }
 
         [Test]

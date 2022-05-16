@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using ResinShop.Core;
+﻿using ResinShop.Core;
 using ResinShop.Core.DTO;
+using ResinShop.Core.Entities;
 using ResinShop.Core.Interfaces.DAL;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,12 +14,17 @@ using System.Threading.Tasks;
 
 namespace ResinShop.DAL.Repositories
 { 
-        public class ReportsRepository : IReportsRepository
+    public class ReportsRepository : IReportsRepository
+    {
+        private readonly IConfigurationRoot Config;
+        string ConnectionString;
+        private readonly FactoryMode mode;
+
+        public ReportsRepository(IConfigurationRoot config)
         {
-        public string ConnectionString { get; set; }
-        public ReportsRepository(DBFactory dBFactory)
-        {
-            ConnectionString = dBFactory.GetConnection();
+            Config = config;
+            string environment = mode == FactoryMode.TEST ? "Test" : "Prod";
+            ConnectionString = Config[$"ConnectionStrings:{environment}"];
         }
 
         public Response<List<OrdersOver5000>> GetOrdersOver5000()

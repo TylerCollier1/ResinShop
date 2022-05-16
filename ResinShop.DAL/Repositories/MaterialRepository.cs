@@ -1,6 +1,7 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
 using ResinShop.Core.Interfaces.DAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace ResinShop.DAL.Repositories
 {
     public class MaterialRepository : IMaterialRepository
     {
-        public DBFactory DbFac { get; set; }
+        private DbContextOptions _dbContextOptions;
 
-        public MaterialRepository(DBFactory dBFactory)
+        public MaterialRepository(FactoryMode mode = FactoryMode.TEST)
         {
-            DbFac = dBFactory;
+            _dbContextOptions = DBFactory.GetDbContext(mode);
         }
 
         public Response Delete(int materialId)
@@ -23,7 +24,7 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     db.Material.Remove(db.Material.Find(materialId));
                     db.SaveChanges();
@@ -42,7 +43,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Material> Get(int materialId)
         {
             Response<Material> response = new Response<Material>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 var material = db.Material.Find(materialId);
                 if (material != null)
@@ -65,7 +66,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     var material = db.Material.ToList();
                     response.Data = material;
@@ -84,7 +85,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Material> Insert(Material material)
         {
             Response<Material> response = new Response<Material>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.Material.Add(material);
                 db.SaveChanges();
@@ -99,7 +100,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(Material material)
         {
             Response response = new Response();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.Material.Update(material);
                 db.SaveChanges();
@@ -108,6 +109,5 @@ namespace ResinShop.DAL.Repositories
             }
             return response;
         }
-
     }
 }

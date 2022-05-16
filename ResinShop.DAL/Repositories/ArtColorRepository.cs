@@ -1,5 +1,7 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
+using ResinShop.Core.Interfaces.DAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace ResinShop.DAL.Repositories
 {
-    public class ArtColorRepository
+    public class ArtColorRepository : IArtColorRepository
     {
-        public DBFactory DbFac { get; set; }
+        private DbContextOptions _dbContextOptions;
 
-        public ArtColorRepository(DBFactory dBFactory)
+        public ArtColorRepository(FactoryMode mode = FactoryMode.TEST)
         {
-            DbFac = dBFactory;
+            _dbContextOptions = DBFactory.GetDbContext(mode);
         }
 
         public Response Delete(int artColorId)
@@ -22,7 +24,7 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     db.ArtColor.Remove(db.ArtColor.Find(artColorId));
                     db.SaveChanges();
@@ -41,7 +43,7 @@ namespace ResinShop.DAL.Repositories
         public Response<ArtColor> Get(int artColorId)
         {
             Response<ArtColor> response = new Response<ArtColor>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 var artColor = db.ArtColor.Find(artColorId);
                 if (artColor != null)
@@ -64,7 +66,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     var artColor = db.ArtColor.ToList();
                     response.Data = artColor;
@@ -83,7 +85,7 @@ namespace ResinShop.DAL.Repositories
         public Response<ArtColor> Insert(ArtColor artColor)
         {
             Response<ArtColor> response = new Response<ArtColor>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.ArtColor.Add(artColor);
                 db.SaveChanges();
@@ -98,7 +100,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(ArtColor artColor)
         {
             Response response = new Response();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.ArtColor.Update(artColor);
                 db.SaveChanges();

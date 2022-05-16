@@ -1,6 +1,7 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
 using ResinShop.Core.Interfaces.DAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace ResinShop.DAL.Repositories
 {
     public class ColorRepository : IColorRepository
     {
-        public DBFactory DbFac { get; set; }
+        private DbContextOptions _dbContextOptions;
 
-        public ColorRepository(DBFactory dBFactory)
+        public ColorRepository(FactoryMode mode = FactoryMode.TEST)
         {
-            DbFac = dBFactory;
+            _dbContextOptions = DBFactory.GetDbContext(mode);
         }
 
         public Response Delete(int orderId)
@@ -23,7 +24,7 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     db.Color.Remove(db.Color.Find(orderId));
                     db.SaveChanges();
@@ -42,7 +43,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Color> Get(int orderId)
         {
             Response<Color> response = new Response<Color>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 var order = db.Color.Find(orderId);
                 if (order != null)
@@ -65,7 +66,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     var order = db.Color.ToList();
                     response.Data = order;
@@ -84,7 +85,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Color> Insert(Color order)
         {
             Response<Color> response = new Response<Color>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.Color.Add(order);
                 db.SaveChanges();
@@ -99,7 +100,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(Color order)
         {
             Response response = new Response();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.Color.Update(order);
                 db.SaveChanges();
@@ -108,6 +109,5 @@ namespace ResinShop.DAL.Repositories
             }
             return response;
         }
-
     }
 }

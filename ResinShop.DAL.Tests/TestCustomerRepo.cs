@@ -13,15 +13,13 @@ namespace ResinShop.DAL.Tests
     public class TestCustomerRepo
     {
         CustomerRepository db;
-        DBFactory dbf;
 
         [SetUp]
         public void Setup()
         {
-            ConfigProvider cp = new ConfigProvider();
-            dbf = new DBFactory(cp.Config, FactoryMode.TEST);
-            db = new CustomerRepository(dbf);
-            dbf.GetDbContext().Database.ExecuteSqlRaw("SetKnownGoodState");
+            CustomerRepository setup = new CustomerRepository(FactoryMode.TEST);
+            setup.SetKnownGoodState();
+            db = setup;
         }
 
         [Test]

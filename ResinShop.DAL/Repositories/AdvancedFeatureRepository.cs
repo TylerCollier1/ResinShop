@@ -1,20 +1,23 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
+using ResinShop.Core.Interfaces.DAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ResinShop.DAL.Repositories
 {
-    public class AdvancedFeatureRepository
+    public class AdvancedFeatureRepository : IAdvancedFeatureRepository
     {
-        public DBFactory DbFac { get; set; }
+        private DbContextOptions _dbContextOptions;
 
-        public AdvancedFeatureRepository(DBFactory dBFactory)
+        public AdvancedFeatureRepository(FactoryMode mode = FactoryMode.TEST)
         {
-            DbFac = dBFactory;
+            _dbContextOptions = DBFactory.GetDbContext(mode);
         }
 
         public Response Delete(int advancedFeatureId)
@@ -22,7 +25,7 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     db.AdvancedFeature.Remove(db.AdvancedFeature.Find(advancedFeatureId));
                     db.SaveChanges();
@@ -41,7 +44,7 @@ namespace ResinShop.DAL.Repositories
         public Response<AdvancedFeature> Get(int advancedFeatureId)
         {
             Response<AdvancedFeature> response = new Response<AdvancedFeature>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 var advancedFeature = db.AdvancedFeature.Find(advancedFeatureId);
                 if (advancedFeature != null)
@@ -64,7 +67,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     var advancedFeature = db.AdvancedFeature.ToList();
                     response.Data = advancedFeature;
@@ -83,7 +86,7 @@ namespace ResinShop.DAL.Repositories
         public Response<AdvancedFeature> Insert(AdvancedFeature advancedFeature)
         {
             Response<AdvancedFeature> response = new Response<AdvancedFeature>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.AdvancedFeature.Add(advancedFeature);
                 db.SaveChanges();
@@ -98,7 +101,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(AdvancedFeature advancedFeature)
         {
             Response response = new Response();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.AdvancedFeature.Update(advancedFeature);
                 db.SaveChanges();

@@ -53,15 +53,12 @@ namespace ResinShop.API
 
             services.AddControllers();
 
-            ConfigProvider cp = new ConfigProvider();
-            DBFactory dbFactory = new DBFactory(cp.Config);
-
-            services.AddTransient<IArtRepository, ArtRepository>(s => new ArtRepository(dbFactory));
-            services.AddTransient<IColorRepository, ColorRepository>(s => new ColorRepository(dbFactory));
-            services.AddTransient<ICustomerRepository, CustomerRepository>(s => new CustomerRepository(dbFactory));
-            services.AddTransient<IOrderRepository, OrderRepository>(s => new OrderRepository(dbFactory));
-            services.AddTransient<IMaterialRepository, MaterialRepository>(s => new MaterialRepository(dbFactory));
-            services.AddTransient<IReportsRepository, ReportsRepository>(s => new ReportsRepository(dbFactory));
+            services.AddTransient<IArtRepository, ArtRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IMaterialRepository, MaterialRepository>();
+            services.AddTransient<IReportsRepository, ReportsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,7 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
 using ResinShop.Core.Interfaces.DAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace ResinShop.DAL.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        public DBFactory DbFac { get; set; }
+        private DbContextOptions _dbContextOptions;
 
-        public OrderRepository(DBFactory dBFactory)
+        public OrderRepository(FactoryMode mode = FactoryMode.TEST)
         {
-            DbFac = dBFactory;
+            _dbContextOptions = DBFactory.GetDbContext(mode);
         }
 
         public Response Delete(int orderId)
@@ -23,7 +24,7 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     db.Order.Remove(db.Order.Find(orderId));
                     db.SaveChanges();
@@ -42,7 +43,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Order> Get(int orderId)
         {
             Response<Order> response = new Response<Order>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 var order = db.Order.Find(orderId);
                 if (order != null)
@@ -65,7 +66,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = DbFac.GetDbContext())
+                using (var db = new AppDbContext(_dbContextOptions))
                 {
                     var order = db.Order.ToList();
                     response.Data = order;
@@ -84,7 +85,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Order> Insert(Order order)
         {
             Response<Order> response = new Response<Order>();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.Order.Add(order);
                 db.SaveChanges();
@@ -99,7 +100,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(Order order)
         {
             Response response = new Response();
-            using (var db = DbFac.GetDbContext())
+            using (var db = new AppDbContext(_dbContextOptions))
             {
                 db.Order.Update(order);
                 db.SaveChanges();
@@ -107,6 +108,13 @@ namespace ResinShop.DAL.Repositories
                 response.Message = "Updated order";
             }
             return response;
+        }
+        public void SetKnownGoodState()
+        {
+            using (var db = new AppDbContext(_dbContextOptions))
+            {
+                db.Database.ExecuteSqlRaw("SetKnownGoodState");
+            }
         }
     }
 }
