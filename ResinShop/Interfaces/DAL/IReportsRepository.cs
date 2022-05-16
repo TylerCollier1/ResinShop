@@ -13,5 +13,8 @@ namespace ResinShop.Core.Interfaces.DAL
         Response<List<OrdersOver5000>> GetOrdersOver5000();
         Response<List<LargeArtPieces>> GetLargeArtPieces();
         Response<List<HasAdvancedFeatures>> GetAdvancedFeatures();
+        Response<List<CustomerInfo>> GetCustomerInfo(int customerId);
+        Response<List<CustomerOrders>> GetCustomerOrders(int customerId);
+        Response<List<CustomerQuotes>> GetCustomerQuotes(int customerId);
     }
 }

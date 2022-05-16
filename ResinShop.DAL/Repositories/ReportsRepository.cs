@@ -14,16 +14,11 @@ namespace ResinShop.DAL.Repositories
 { 
         public class ReportsRepository : IReportsRepository
         {
-            private readonly IConfigurationRoot Config;
-            string connectionString;
-            private readonly FactoryMode mode;
-
-            public ReportsRepository(IConfigurationRoot config)
-            {
-                Config = config;
-                string environment = mode == FactoryMode.TEST ? "Test" : "Prod";
-                connectionString = Config[$"ConnectionStrings:{environment}"];
-            }
+        public string ConnectionString { get; set; }
+        public ReportsRepository(DBFactory dBFactory)
+        {
+            ConnectionString = dBFactory.GetConnection();
+        }
 
         public Response<List<OrdersOver5000>> GetOrdersOver5000()
         {
@@ -31,7 +26,7 @@ namespace ResinShop.DAL.Repositories
             response.Data = new List<OrdersOver5000>();
             try
             {
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(ConnectionString))
                 {
                     var cmd = new SqlCommand("OrdersOver5000", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -69,7 +64,7 @@ namespace ResinShop.DAL.Repositories
             response.Data = new List<LargeArtPieces>();
             try
             {
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(ConnectionString))
                 {
                     var cmd = new SqlCommand("LargeArtPieces", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -107,7 +102,7 @@ namespace ResinShop.DAL.Repositories
             response.Data = new List<HasAdvancedFeatures>();
             try
             {
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(ConnectionString))
                 {
                     var cmd = new SqlCommand("HasAdvancedFeatures", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -134,6 +129,137 @@ namespace ResinShop.DAL.Repositories
             {
                 response.Success = false;
                 response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public Response<List<CustomerInfo>> GetCustomerInfo(int customerId)
+        {
+            var response = new Response<List<CustomerInfo>>();
+            response.Data = new List<CustomerInfo>();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var cmd = new SqlCommand("CustomerInfo", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@CustomerId", customerId);
+
+                try
+                {
+                    connection.Open();
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            response.Data.Add(new CustomerInfo
+                            {
+                                CustomerId = (int)dr["CustomerId"],
+                                ArtId = (int)dr["ArtId"],
+                                AdvancedFeatureId = (int)dr["AdvancedFeatureId"],
+                                OrderId = (int)dr["OrderId"],
+                                FirstName = dr["FirstName"].ToString(),
+                                LastName = dr["LastName"].ToString(),
+                                Email = dr["Email"].ToString(),
+                                StreetAddress = dr["StreetAddress"].ToString(),
+                                City = dr["City"].ToString(),
+                                StateName = dr["StateName"].ToString(),
+                                ZipCode = dr["ZipCode"].ToString(),
+                                PhoneNumber = dr["PhoneNumber"].ToString(),
+                                Height = (decimal)dr["Height"],
+                                Width = (decimal)dr["Width"],
+                                MaterialQuantity = (int)dr["MaterialQuantity"],
+                                ColorQuantity = (int)dr["ColorQuantity"],
+                                Cost = (decimal)dr["Cost"],
+                            });
+                            response.Success = true;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    response.Success = false;
+                    response.Message = "Customer Information not found.";
+                }
+            }
+            return response;
+        }
+
+        public Response<List<CustomerOrders>> GetCustomerOrders(int customerId)
+        {
+            var response = new Response<List<CustomerOrders>>();
+            response.Data = new List<CustomerOrders>();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var cmd = new SqlCommand("CustomerOrders", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@CustomerId", customerId);
+
+                try
+                {
+                    connection.Open();
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            response.Data.Add(new CustomerOrders
+                            {
+                                OrderId = (int)dr["OrderId"],
+                                OrderDate = (DateTime)dr["OrderDate"],
+                                Height = (decimal)dr["Height"],
+                                Width = (decimal)dr["Width"],
+                                Cost = (decimal)dr["Cost"],
+                                ArtId = (int)dr["ArtId"],
+                            });
+                            response.Success = true;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    response.Success = false;
+                    response.Message = "No orders found.";
+                }
+            }
+            return response;
+        }
+
+        public Response<List<CustomerQuotes>> GetCustomerQuotes(int customerId)
+        {
+            var response = new Response<List<CustomerQuotes>>();
+            response.Data = new List<CustomerQuotes>();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var cmd = new SqlCommand("CustomerQuotes", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@CustomerId", customerId);
+
+                try
+                {
+                    connection.Open();
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            response.Data.Add(new CustomerQuotes
+                            {
+                                ArtId = (int)dr["ArtId"],
+                                Height = (decimal)dr["Height"],
+                                Width = (decimal)dr["Width"],
+                                MaterialQuantity = (int)dr["MaterialQuantity"],
+                                ColorQuantity = (int)dr["ColorQuantity"],
+                                Cost = (decimal)dr["Cost"],
+                            });
+                            response.Success = true;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    response.Success = false;
+                    response.Message = "No quotes found.";
+                }
             }
             return response;
         }
