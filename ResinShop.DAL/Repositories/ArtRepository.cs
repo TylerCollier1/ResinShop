@@ -24,30 +24,30 @@ namespace ResinShop.DAL.Repositories
         {
             Response response = new Response();
             try
-            {
-                var orders = db.Order
-                        .Where(o => o.ArtId == artId);
-                foreach (var order in orders)
-                {
-                    db.Order.Remove(order);
-                }
-
-                var artColors = db.ArtColor
-                    .Where(ac => ac.ArtId == ac.ArtId);
-                foreach (var artColor in artColors)
-                {
-                    db.ArtColor.Remove(artColor);
-                }
-
-                var artMaterials = db.ArtMaterial
-                    .Where(am => am.ArtId == artId);
-                foreach (var artMaterial in artMaterials)
-                {
-                    db.ArtMaterial.Remove(artMaterial);
-                }
-
+            {                
                 using (var db = DbFac.GetDbContext())
                 {
+                    var orders = db.Order
+                        .Where(o => o.ArtId == artId);
+                    foreach (var order in orders)
+                    {
+                        db.Order.Remove(order);
+                    }
+
+                    var artColors = db.ArtColor
+                        .Where(ac => ac.ArtId == ac.ArtId);
+                    foreach (var artColor in artColors)
+                    {
+                        db.ArtColor.Remove(artColor);
+                    }
+
+                    var artMaterials = db.ArtMaterial
+                        .Where(am => am.ArtId == artId);
+                    foreach (var artMaterial in artMaterials)
+                    {
+                        db.ArtMaterial.Remove(artMaterial);
+                    }
+
                     db.Art.Remove(db.Art.Find(artId));
                     db.SaveChanges();
                     response.Success = true;
