@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using ResinShop.Core;
 using ResinShop.Core.Entities;
 using ResinShop.Core.Interfaces.DAL;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace ResinShop.DAL.Repositories
 {
     public class ArtRepository : IArtRepository
     {
-        private DbContextOptions _dbContextOptions;
+        public DBFactory DbFac { get; set; }
 
-        public ArtRepository(FactoryMode mode = FactoryMode.TEST)
+        public ArtRepository(DBFactory dBFactory)
         {
-            _dbContextOptions = DBFactory.GetDbContext(mode);
+            DbFac = dBFactory;
         }
 
         public Response Delete(int artId) //TODO: Fix this one after ORDER Repo is complete
@@ -25,29 +25,8 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = new AppDbContext(_dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
-                    var orders = db.Order
-                        .Where(o => o.ArtId == artId);
-                    foreach (var order in orders)
-                    {
-                        db.Order.Remove(order);
-                    }
-
-                    var artColors = db.ArtColor
-                        .Where(ac => ac.ArtId == ac.ArtId);
-                    foreach (var artColor in artColors)
-                    {
-                        db.ArtColor.Remove(artColor);
-                    }
-
-                    var artMaterials = db.ArtMaterial
-                        .Where(am => am.ArtId == artId);
-                    foreach (var artMaterial in artMaterials)
-                    {
-                        db.ArtMaterial.Remove(artMaterial);
-                    }
-
                     db.Art.Remove(db.Art.Find(artId));
                     db.SaveChanges();
                     response.Success = true;
@@ -65,7 +44,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Art> Get(int artId)
         {
             Response<Art> response = new Response<Art>();
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 var art = db.Art.Find(artId);
                 if (art != null)
@@ -88,7 +67,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = new AppDbContext(_dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
                     var art = db.Art.ToList();
                     response.Data = art;
@@ -107,7 +86,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Art> Insert(Art art)
         {
             Response<Art> response = new Response<Art>();
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 db.Art.Add(art);
                 db.SaveChanges();
@@ -122,7 +101,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(Art art)
         {
             Response response = new Response();
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 db.Art.Update(art);
                 db.SaveChanges();
@@ -130,14 +109,6 @@ namespace ResinShop.DAL.Repositories
                 response.Message = "Updated art";
             }
             return response;
-        }
-
-        public void SetKnownGoodState()
-        {
-            using (var db = new AppDbContext(_dbContextOptions))
-            {
-                db.Database.ExecuteSqlRaw("SetKnownGoodState");
-            }
         }
     }
 }
