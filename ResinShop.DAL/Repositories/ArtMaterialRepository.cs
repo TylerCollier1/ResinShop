@@ -14,11 +14,6 @@ namespace ResinShop.DAL.Repositories
     {
         private DbContextOptions _dbContextOptions;
 
-        public ArtMaterialRepository(FactoryMode mode = FactoryMode.TEST)
-        {
-            _dbContextOptions = DBFactory.GetDbContext(mode);
-        }
-
         public Response Delete(int artMaterialId)
         {
             Response response = new Response();

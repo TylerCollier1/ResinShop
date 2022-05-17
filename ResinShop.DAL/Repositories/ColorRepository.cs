@@ -14,11 +14,6 @@ namespace ResinShop.DAL.Repositories
     {
         private DbContextOptions _dbContextOptions;
 
-        public ColorRepository(FactoryMode mode = FactoryMode.TEST)
-        {
-            _dbContextOptions = DBFactory.GetDbContext(mode);
-        }
-
         public Response Delete(int orderId)
         {
             Response response = new Response();
