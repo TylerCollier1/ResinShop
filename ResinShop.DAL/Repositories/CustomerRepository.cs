@@ -1,7 +1,6 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
 using ResinShop.Core.Interfaces.DAL;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +11,11 @@ namespace ResinShop.DAL.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private DbContextOptions _dbContextOptions;
+        public DBFactory DbFac { get; set; }
 
-        public CustomerRepository(FactoryMode mode = FactoryMode.TEST)
+        public CustomerRepository(DBFactory dBFactory)
         {
-            _dbContextOptions = DBFactory.GetDbContext(mode);
+            DbFac = dBFactory;
         }
 
         public Response Delete(int customerId) //TODO: Fix this one after ORDER Repo is complete
@@ -24,15 +23,8 @@ namespace ResinShop.DAL.Repositories
             Response response = new Response();
             try
             {
-                using (var db = new AppDbContext(_dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
-                    var orders = db.Order
-                        .Where(o => o.CustomerId == customerId);
-                    foreach (var order in orders)
-                    {
-                        db.Order.Remove(order);
-                    }
-
                     db.Customer.Remove(db.Customer.Find(customerId));
                     db.SaveChanges();
                     response.Success = true;
@@ -50,7 +42,7 @@ namespace ResinShop.DAL.Repositories
         public Response<Customer> Get(int customerId)
         {
             Response<Customer> response = new Response<Customer>();
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 try
                 {
@@ -81,7 +73,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = new AppDbContext(_dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
                     var customer = db.Customer.ToList();
                     response.Data = customer;
@@ -101,7 +93,7 @@ namespace ResinShop.DAL.Repositories
         {
             Response<Customer> response = new Response<Customer>();
 
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 try
                 {
@@ -126,7 +118,7 @@ namespace ResinShop.DAL.Repositories
         {
             Response response = new Response();
 
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
                 try
                 {
                     db.Customer.Update(customer);
@@ -141,13 +133,5 @@ namespace ResinShop.DAL.Repositories
                 }
             return response;
         }
-        public void SetKnownGoodState()
-        {
-            using (var db = new AppDbContext(_dbContextOptions))
-            {
-                db.Database.ExecuteSqlRaw("SetKnownGoodState");
-            }
-        }
     }
 }
-

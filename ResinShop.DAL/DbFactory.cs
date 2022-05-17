@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ResinShop.DAL
 {
@@ -16,18 +18,30 @@ namespace ResinShop.DAL
 
     public class DBFactory
     {
-        public static DbContextOptions GetDbContext(FactoryMode mode)
-        {
-            string environment = mode == FactoryMode.TEST ? "Test" : "Prod";
+        private readonly IConfigurationRoot Config;
+        private readonly FactoryMode Mode;
 
-            var builder = new ConfigurationBuilder();
-            builder.AddUserSecrets<ConfigProvider>();
-            var config = builder.Build();
+        public DBFactory(IConfigurationRoot config, FactoryMode mode = FactoryMode.PROD)
+        {
+            Config = config;
+            Mode = mode;
+        }
+
+        public AppDbContext GetDbContext()
+        {
+            string environment = Mode == FactoryMode.TEST ? "Test" : "Prod";
 
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer(config[$"ConnectionStrings:{environment}"])
+                .UseSqlServer(Config[$"ConnectionStrings:{environment}"])
                 .Options;
-            return options;
+            return new AppDbContext(options);
         }
+
+        public string GetConnection()
+        {
+            string environment = Mode == FactoryMode.TEST ? "Test" : "Prod";
+            return Config[$"ConnectionStrings:{environment}"];
+        }
+
     }
 }

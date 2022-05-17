@@ -1,7 +1,5 @@
 ﻿using ResinShop.Core;
 using ResinShop.Core.Entities;
-using ResinShop.Core.Interfaces.DAL;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +8,21 @@ using System.Threading.Tasks;
 
 namespace ResinShop.DAL.Repositories
 {
-    public class ArtMaterialRepository : IArtMaterialRepository
+    public class ArtMaterialRepository
     {
-        private DbContextOptions _dbContextOptions;
+        public DBFactory DbFac { get; set; }
+
+        public ArtMaterialRepository(DBFactory dBFactory)
+        {
+            DbFac = dBFactory;
+        }
 
         public Response Delete(int artMaterialId)
         {
             Response response = new Response();
             try
             {
-                using (var db = new AppDbContext(_dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
                     db.ArtMaterial.Remove(db.ArtMaterial.Find(artMaterialId));
                     db.SaveChanges();
@@ -38,7 +41,7 @@ namespace ResinShop.DAL.Repositories
         public Response<ArtMaterial> Get(int artMaterialId)
         {
             Response<ArtMaterial> response = new Response<ArtMaterial>();
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 var artMaterial = db.ArtMaterial.Find(artMaterialId);
                 if (artMaterial != null)
@@ -61,7 +64,7 @@ namespace ResinShop.DAL.Repositories
 
             try
             {
-                using (var db = new AppDbContext(_dbContextOptions))
+                using (var db = DbFac.GetDbContext())
                 {
                     var artMaterial = db.ArtMaterial.ToList();
                     response.Data = artMaterial;
@@ -80,7 +83,7 @@ namespace ResinShop.DAL.Repositories
         public Response<ArtMaterial> Insert(ArtMaterial artMaterial)
         {
             Response<ArtMaterial> response = new Response<ArtMaterial>();
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 db.ArtMaterial.Add(artMaterial);
                 db.SaveChanges();
@@ -95,7 +98,7 @@ namespace ResinShop.DAL.Repositories
         public Response Update(ArtMaterial artMaterial)
         {
             Response response = new Response();
-            using (var db = new AppDbContext(_dbContextOptions))
+            using (var db = DbFac.GetDbContext())
             {
                 db.ArtMaterial.Update(artMaterial);
                 db.SaveChanges();

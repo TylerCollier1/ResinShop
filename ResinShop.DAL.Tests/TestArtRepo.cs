@@ -13,13 +13,15 @@ namespace ResinShop.DAL.Tests
     public class TestArtRepo
     {
         ArtRepository db;
+        DBFactory dbf;
 
         [SetUp]
         public void Setup()
         {
-            ArtRepository setup = new ArtRepository(FactoryMode.TEST);
-            setup.SetKnownGoodState();
-            db = setup;
+            ConfigProvider cp = new ConfigProvider();
+            dbf = new DBFactory(cp.Config, FactoryMode.TEST);
+            db = new ArtRepository(dbf);
+            dbf.GetDbContext().Database.ExecuteSqlRaw("setknowngoodstate");
         }
 
 
@@ -37,7 +39,7 @@ namespace ResinShop.DAL.Tests
                 Height = 12,
                 Width = 12,
                 MaterialQuantity = 1,
-                ColorQuantity = 1, 
+                ColorQuantity = 1,
                 AdvancedFeatureId = 1,
                 Cost = 396
             };
