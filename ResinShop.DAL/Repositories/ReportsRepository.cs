@@ -41,8 +41,8 @@ namespace ResinShop.DAL.Repositories
                             {
                                 OrderId = (int)reader["OrderId"],
                                 ArtId = (int)reader["ArtId"],
-                                FirstName = reader["First Name"].ToString(),
-                                LastName = reader["Last Name"].ToString(),
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
                                 Cost = (decimal)reader["Cost"],
                             });
                             response.Success = true;
@@ -78,8 +78,8 @@ namespace ResinShop.DAL.Repositories
                             response.Data.Add(new LargeArtPieces
                             {
                                 ArtId = (int)reader["ArtId"],
-                                FirstName = reader["First Name"].ToString(),
-                                LastName = reader["Last Name"].ToString(),
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
                                 Height = (decimal)reader["Height"],
                                 Width = (decimal)reader["Width"],
                             });
@@ -116,9 +116,9 @@ namespace ResinShop.DAL.Repositories
                             response.Data.Add(new HasAdvancedFeatures
                             {
                                 ArtId = (int)reader["ArtId"],
-                                FirstName = reader["First Name"].ToString(),
-                                LastName = reader["Last Name"].ToString(),
-                                AdvancedFeatureName = reader["Advanced Feature Name"].ToString(),
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
+                                AdvancedFeatureName = reader["AdvancedFeatureName"].ToString(),
                             });
                             response.Success = true;
                         }
