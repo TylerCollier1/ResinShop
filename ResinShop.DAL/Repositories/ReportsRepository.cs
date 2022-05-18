@@ -11,9 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ResinShop.DAL.Repositories
-{ 
-        public class ReportsRepository : IReportsRepository
-        {
+{
+    public class ReportsRepository : IReportsRepository
+    {
         public string ConnectionString { get; set; }
         public ReportsRepository(DBFactory dBFactory)
         {
@@ -116,9 +116,9 @@ namespace ResinShop.DAL.Repositories
                             response.Data.Add(new HasAdvancedFeatures
                             {
                                 ArtId = (int)reader["ArtId"],
-                                FirstName = reader["First Name"].ToString(),
-                                LastName = reader["Last Name"].ToString(),
-                                AdvancedFeatureName = reader["Advanced Feature Name"].ToString(),
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
+                                AdvancedFeatureName = reader["AdvancedFeatureName"].ToString(),
                             });
                             response.Success = true;
                         }

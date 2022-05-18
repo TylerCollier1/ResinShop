@@ -39,7 +39,7 @@ namespace ResinShop.DAL.Tests
                 Height = 12,
                 Width = 12,
                 MaterialQuantity = 1,
-                ColorQuantity = 1, 
+                ColorQuantity = 1,
                 AdvancedFeatureId = 1,
                 Cost = 396
             };

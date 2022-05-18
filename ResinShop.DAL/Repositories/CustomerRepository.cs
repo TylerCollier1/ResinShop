@@ -25,6 +25,13 @@ namespace ResinShop.DAL.Repositories
             {
                 using (var db = DbFac.GetDbContext())
                 {
+                    var orders = db.Order
+                        .Where(o => o.CustomerId == customerId);
+                    foreach (var order in orders)
+                    {
+                        db.Order.Remove(order);
+                    }
+
                     db.Customer.Remove(db.Customer.Find(customerId));
                     db.SaveChanges();
                     response.Success = true;
@@ -135,4 +142,3 @@ namespace ResinShop.DAL.Repositories
         }
     }
 }
-

@@ -39,29 +39,29 @@ namespace ResinShop.DAL.Tests
         {
             Order expected = new Order
             {
-                OrderId = 4,
-                CustomerId = 4, // need to double check
-                ArtId = 4,  // need to double check
-                OrderDate = new DateTime(2022, 10, 3)
+                CustomerId = 2, // need to double check
+                ArtId = 3,  // need to double check
+                OrderDate = new DateTime(2022, 11, 20)
             };
 
-            db.Insert(expected);
-            expected.OrderId = 4;
-
-            Assert.AreEqual(expected.OrderId, db.Get(4).Data.OrderId);
+            var add = db.Insert(expected);
+            Assert.IsTrue(add.Success);
+            Assert.AreEqual(expected.ArtId, db.Get(4).Data.ArtId);
+            Assert.AreEqual(expected.CustomerId, db.Get(4).Data.CustomerId);
         }
 
         [Test]
         public void TestUpdateOrder()
         {
             Order order = db.Get(3).Data;
-            order.ArtId = 5;        // need to double check
-            order.CustomerId = 5;   // need to double check
-            order.OrderDate = new DateTime(2022, 06, 20);
-            db.Update(order);
-
-            Assert.AreEqual(order.ArtId, ar.Get(2).Data);
-            Assert.AreEqual(order.CustomerId, cr.Get(1).Data);
+            order.ArtId = 3;        // need to double check
+            order.CustomerId = 1;   // need to double check
+            order.OrderDate = new DateTime(2022, 10, 3);
+            
+            var update = db.Update(order);
+            Assert.IsTrue(update.Success);
+            Assert.AreEqual(order.ArtId, db.Get(3).Data.ArtId);
+            Assert.AreEqual(order.CustomerId, db.Get(1).Data.CustomerId);
         }
 
         [Test]
