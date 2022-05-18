@@ -45,5 +45,22 @@ namespace ResinShop.API.Controllers
                     throw new Exception(result.Message);
                 }
             }
+
+
+        [HttpGet]
+        [Route("/api/[controller]/large-order", Name = "LargeOrder")]
+        public IActionResult GetLargeOrder()
+        {
+            var result = _reportsRepository.GetOrdersOver5000();
+
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            else
+            {
+                throw new Exception(result.Message);
+            }
         }
+    }
 }
