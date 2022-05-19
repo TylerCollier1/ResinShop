@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ResinShop.Core.DTO;
 using ResinShop.Core.Entities;
 
 namespace ResinShop.Core.Interfaces.DAL

@@ -263,5 +263,87 @@ namespace ResinShop.DAL.Repositories
             }
             return response;
         }
+
+        public Response<List<OrderDisplayInfo>> GetOrderDisplay()
+        {
+            Response<List<OrderDisplayInfo>> response = new Response<List<OrderDisplayInfo>>();
+            response.Data = new List<OrderDisplayInfo>();
+            try
+            {
+                using (var connection = new SqlConnection(ConnectionString))
+                {
+                    var cmd = new SqlCommand("OrderDisplayInfo", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            response.Data.Add(new OrderDisplayInfo
+                            {
+                                OrderId = (int)reader["OrderId"],
+                                OrderDate = (DateTime)reader["OrderDate"],
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
+                                Height = (decimal)reader["Height"],
+                                Width = (decimal)reader["Width"],
+                                Cost = (decimal)reader["Cost"],
+                            });
+                            response.Success = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public Response<List<OrderDetails>> GetOneOrderDetails(int orderId)
+        {
+            Response<List<OrderDetails>> response = new Response<List<OrderDetails>>();
+            response.Data = new List<OrderDetails>();
+            try
+            {
+                using (var connection = new SqlConnection(ConnectionString))
+                {
+                    var cmd = new SqlCommand("OrderDetails", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@OrderId", orderId);
+
+                    connection.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            response.Data.Add(new OrderDetails
+                            {
+                                OrderId = (int)reader["OrderId"],
+                                OrderDate = (DateTime)reader["OrderDate"],
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
+                                Height = (decimal)reader["Height"],
+                                Width = (decimal)reader["Width"],
+                                Cost = (decimal)reader["Cost"],
+                            });
+                            response.Success = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
     }
 }

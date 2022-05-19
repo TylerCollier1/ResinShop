@@ -16,5 +16,7 @@ namespace ResinShop.Core.Interfaces.DAL
         Response<List<CustomerInfo>> GetCustomerInfo(int customerId);
         Response<List<CustomerOrders>> GetCustomerOrders(int customerId);
         Response<List<CustomerQuotes>> GetCustomerQuotes(int customerId);
+        Response<List<OrderDisplayInfo>> GetOrderDisplay();
+        Response<List<OrderDetails>> GetOneOrderDetails(int customerId);
     }
 }

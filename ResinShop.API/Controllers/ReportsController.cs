@@ -16,9 +16,10 @@ namespace ResinShop.API.Controllers
             }
 
             [HttpGet]
-            public IActionResult GetLargeOrders()
+        [Route("/api/[controller]/orderdetail/{id}", Name = "OrderDetail")]
+        public IActionResult GetOrderDetail(int id)
             {
-                var result = _reportsRepository.GetOrdersOver5000();
+                var result = _reportsRepository.GetOneOrderDetails(id);
 
                 if (result.Success)
                 {
@@ -30,7 +31,7 @@ namespace ResinShop.API.Controllers
                 }
             }
 
-            [HttpGet]
+        [HttpGet]
             [Route("/api/[controller]/large-art", Name = "LargeArt")]
             public IActionResult GetLargeArtPiece()
             {
@@ -52,6 +53,22 @@ namespace ResinShop.API.Controllers
         public IActionResult GetLargeOrder()
         {
             var result = _reportsRepository.GetOrdersOver5000();
+
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            else
+            {
+                throw new Exception(result.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("/api/[controller]/orderdisplay", Name = "OrdersInfo")]
+        public IActionResult GetOrderDisplay()
+        {
+            var result = _reportsRepository.GetOrderDisplay();
 
             if (result.Success)
             {

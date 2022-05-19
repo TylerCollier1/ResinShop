@@ -1,8 +1,11 @@
 ﻿using ResinShop.Core;
+using ResinShop.Core.DTO;
 using ResinShop.Core.Entities;
 using ResinShop.Core.Interfaces.DAL;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,7 @@ namespace ResinShop.DAL.Repositories
     public class OrderRepository : IOrderRepository
     {
         public DBFactory DbFac { get; set; }
+        public string ConnectionString { get; set; }
 
         public OrderRepository(DBFactory dBFactory)
         {
